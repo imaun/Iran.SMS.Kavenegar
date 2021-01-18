@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30611.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iran.SMS.Kavenegar.Core", "Iran.SMS.Kavenegar.Core\Iran.SMS.Kavenegar.Core.csproj", "{50892A9F-CE0A-4F82-9BEF-2B3F85B3D265}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{50892A9F-CE0A-4F82-9BEF-2B3F85B3D265}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50892A9F-CE0A-4F82-9BEF-2B3F85B3D265}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50892A9F-CE0A-4F82-9BEF-2B3F85B3D265}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50892A9F-CE0A-4F82-9BEF-2B3F85B3D265}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E4918D9D-C3B7-4DDD-AB08-66B687C4D652}
+	EndGlobalSection
+EndGlobal
