@@ -6,7 +6,7 @@ namespace Iran.SMS.Kavenegar.Core.Models
 {
     public class SendSmsInput
     {
-        public ICollection<MobileNumber> TargetMobileNumbers { get; set; }
+        public ICollection<MobileNumber> ReceptorMobileNumbers { get; set; }
         public string Message { get; set; }
         public string SenderLineNumber { get; set; }
         public DateTime SendDate { get; set; }
