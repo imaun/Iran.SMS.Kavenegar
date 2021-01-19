@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Linq;
+using System.Collections.Generic;
 using System.Globalization;
+using Iran.SMS.Kavenegar.Core.Models;
+using Iran.SMS.Kavenegar.Core.Internal;
 
 namespace Iran.SMS.Kavenegar.Core.Extensions {
 
@@ -19,5 +23,27 @@ namespace Iran.SMS.Kavenegar.Core.Extensions {
             return long.Parse(elapsedTime.TotalSeconds.ToString(CultureInfo.InvariantCulture));
         }
 
+        public static string GetMobileNumbersAsString(
+            this IEnumerable<MobileNumber> source,
+            string delimeter = ",") {
+            var result = source.Aggregate("", 
+                (current, mobile) 
+                    => current + (mobile.ToString() + delimeter));
+            return result.Substring(0, result.Length - 1);
+        }
+
+        public static KavenegarSendSmsInput ToKavenegarModel<T>(
+            this SendSmsInput<T> model) {
+            var result = new KavenegarSendSmsInput {
+                DisplayType = model.DisplayType.ToString(),
+                Hide = byte.Parse(model.HideInWebConsole.ToString()),
+                Message = model.Message,
+                Receptor = model.ReceptorMobileNumbers.GetMobileNumbersAsString(),
+                SendDate = model.SendDate.ToTimestamp(),
+                SenderLineNumber = model.SenderLineNumber
+            };
+
+            return result;
+        }
     }
 }

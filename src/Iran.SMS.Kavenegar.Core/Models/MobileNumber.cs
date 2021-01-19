@@ -28,5 +28,8 @@ namespace Iran.SMS.Kavenegar.Core.Models
             }
         }
 
+        public override string ToString() 
+            => _value;
+
     }
 }
