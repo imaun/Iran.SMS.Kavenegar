@@ -2,15 +2,11 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Iran.SMS.Kavenegar.Core.Models
-{
-    public class SendSmsOutput: ApiResult<IEnumerable<SendSmsOutputItem>>
-    {
+namespace Iran.SMS.Kavenegar.Core.Models {
 
-    }
+    public class SendSmsOutput: ApiResult<IEnumerable<SendSmsOutputItem>>{ }
 
-    public class SendSmsOutputItem
-    {
+    public class SendSmsOutputItem {
         /// <summary>
         /// شناسه یکتای این پیامک (برای اطلاع از وضعیت پیامک ارسالی این مقدار ورودی متد Status می‌باشد.)
         /// </summary>
