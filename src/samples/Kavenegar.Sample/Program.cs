@@ -10,6 +10,8 @@ namespace Kavenegar.Sample
 {
     class Program
     {
+        const string __API_KEY = "";
+
         static Task Main(string[] args) {
             using IHost host = CreateHostBuilder(args).Build();
 
@@ -22,15 +24,15 @@ namespace Kavenegar.Sample
             using IServiceScope scope = services.CreateScope();
             IServiceProvider provider = scope.ServiceProvider;
 
-            var smsService = provider.GetRequiredService<KavenegarService>();
-            smsService.ApiKey = "";
+            var smsService = provider.GetRequiredService<IKavenegarService>();
+            //smsService.ApiKey = __API_KEY;
             var result = smsService.SendAsync(new SendSmsInput<long> {
                 DisplayType = MessageDisplayType.Normal,
                 ReceptorMobileNumbers = new List<MobileNumber> {
                     new MobileNumber("09120781451")
                 },
                 Message = msg,
-                SendDate = DateTime.Now,
+                SendDate = DateTime.UtcNow,
                 SenderLineNumber = "1000596446"
             }).Result;
 
@@ -41,6 +43,6 @@ namespace Kavenegar.Sample
         static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((_, services) =>
-                    services.AddSingleton<KavenegarService>());
+                    services.AddKavenegarSmsService(apiKey: __API_KEY));
     }
 }

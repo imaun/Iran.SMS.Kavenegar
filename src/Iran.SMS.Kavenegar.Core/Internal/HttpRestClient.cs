@@ -3,18 +3,16 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
-namespace System.Net.Http
-{
-    public interface IHttpRestClient
-    {
+namespace System.Net.Http {
+
+    public interface IHttpRestClient {
         Task<TResult> PostAsync<T, TResult>(
             T data,
             string url,
             Dictionary<string, string> headers = null);
     }
 
-    public class HttpRestClient : IHttpRestClient
-    {
+    public class HttpRestClient : IHttpRestClient {
 
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly HttpClient _httpClient;

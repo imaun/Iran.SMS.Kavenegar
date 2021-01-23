@@ -3,10 +3,9 @@ using System.Net.Http;
 using System.Collections.Generic;
 using Iran.SMS.Kavenegar.Core;
 
-namespace Microsoft.Extensions.DependencyInjection
-{
-    public static class ServiceProvider
-    {
+namespace Microsoft.Extensions.DependencyInjection {
+
+    public static class ServiceProvider {
 
         /// <summary>
         /// Add <see cref="KavenegarService"/> to send & recieve sms messages 
@@ -23,7 +22,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<IHttpRestClient, HttpRestClient>();
             var restClient = services.BuildServiceProvider()
                 .GetRequiredService<IHttpRestClient>();
-            services.AddScoped<KavenegarService>(
+            services.AddScoped<IKavenegarService>(
                 _=> new KavenegarService(restClient, apiKey));
 
             return services;
@@ -39,7 +38,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.AddHttpClient();
             services.AddSingleton<IHttpRestClient, HttpRestClient>();
-            services.AddScoped<KavenegarService>();
+            services.AddScoped<IKavenegarService, KavenegarService>();
 
             return services;
         }

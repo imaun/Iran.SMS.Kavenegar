@@ -34,7 +34,7 @@ namespace Iran.SMS.Kavenegar.Core.Internal {
         /// نوع پیام در گوشی گیرنده می‌باشد (جدول شماره 3) فقط برای خطوط 3000 امکان پذیر است
         /// </summary>
         [JsonProperty("type")]
-        public string DisplayType { get; set; }
+        public int DisplayType { get; set; }
 
         /// <summary>
         /// شناسه محلی در پایگاه داده های شما است ، اطلاعات بیشتر در بخش یادداشت نوشته شده

@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Web;
 using System.Linq;
 using System.Collections.Generic;
-using System.Globalization;
 using Iran.SMS.Kavenegar.Core.Models;
 using Iran.SMS.Kavenegar.Core.Internal;
 
@@ -23,7 +23,9 @@ namespace Iran.SMS.Kavenegar.Core.Extensions {
         /// <returns>Unix Timestamp for the given <see cref="DateTime"/> value.</returns>
         public static long ToUnixTime(this DateTime value) {
             TimeSpan elapsedTime = value - Epoch;
-            return long.Parse(elapsedTime.TotalSeconds.ToString(CultureInfo.InvariantCulture));
+            long totalSeconds = Convert.ToInt64(elapsedTime.TotalSeconds);
+            //return long.Parse(elapsedTime.TotalSeconds.ToString(CultureInfo.InvariantCulture));
+            return totalSeconds;
         }
 
         public static DateTime ToDateTime(long unixTimeValue)
@@ -42,22 +44,31 @@ namespace Iran.SMS.Kavenegar.Core.Extensions {
             this IEnumerable<T> localIds,
             char delimeter = ',') {
             var result = string.Empty;
+            if (localIds == null || !localIds.Any())
+                return result;
+            
             foreach (T item in localIds)
                 result += $"{item}{delimeter}";
 
             return result.Substring(0, result.Length - 1);
         }
 
+        public static string ToUrlEncode(this string what)
+            => HttpUtility.UrlEncode(what);
+
         public static KavenegarSendSmsInput ToKavenegarModel<T>(
             this SendSmsInput<T> model)
                 => new KavenegarSendSmsInput {
-                    DisplayType = model.DisplayType.ToString(),
-                    Hide = byte.Parse(model.HideInWebConsole.ToString()),
-                    Message = model.Message,
-                    Receptor = model.ReceptorMobileNumbers.GetMobileNumbersAsString(),
-                    SendDate = model.SendDate.ToUnixTime(),
-                    SenderLineNumber = model.SenderLineNumber,
-                    LocalIds = model.LocalIds.GetLocalIdsAsString<T>()
+                    DisplayType = (int)model.DisplayType,
+                    Hide = Convert.ToByte(model.HideInWebConsole),
+                    Message = model.Message.ToUrlEncode(),
+                    Receptor = model.ReceptorMobileNumbers
+                        .GetMobileNumbersAsString().ToUrlEncode(),
+                    SendDate = model.SendDate == DateTime.MinValue 
+                        ? 0 
+                        : model.SendDate.ToUnixTime(),
+                    SenderLineNumber = model.SenderLineNumber.ToUrlEncode(),
+                    LocalIds = model.LocalIds.GetLocalIdsAsString()
                 };
 
     }

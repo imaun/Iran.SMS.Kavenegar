@@ -1,7 +1,6 @@
-﻿namespace Iran.SMS.Kavenegar.Core.Models
-{
-    public enum MessageDisplayType
-    {
+﻿namespace Iran.SMS.Kavenegar.Core.Models {
+
+    public enum MessageDisplayType {
         /// <summary>
         /// پیامک بصورت مستقیم برروی صفحه موبایل شخص گیرنده ظاهرمی‌شود
         /// .این حالت پیامک درموبایل یا سیم کارت شخص گیرنده
