@@ -40,7 +40,7 @@ namespace Iran.SMS.Kavenegar.Core.Internal {
         /// شناسه محلی در پایگاه داده های شما است ، اطلاعات بیشتر در بخش یادداشت نوشته شده
         /// </summary>
         [JsonProperty("localid")]
-        public IEnumerable<string> LocalIds { get; set; }
+        public string LocalIds { get; set; }
 
         /// <summary>
         /// اگر مقداری عددی پارامتر hide برابر 1 باشد شماره گیرنده در فهرست ارسال ها و کنسول وب نمایش داده نمی شود.

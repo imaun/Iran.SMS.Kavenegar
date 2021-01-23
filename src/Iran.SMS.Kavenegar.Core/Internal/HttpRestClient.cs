@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using System.Text;
 using System.Text.Json;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
-namespace Iran.SMS.Kavenegar.Core.Internal
+namespace System.Net.Http
 {
     public interface IHttpRestClient
     {
