@@ -1,13 +1,18 @@
 ﻿using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace System.Net.Http {
 
     public interface IHttpRestClient {
         Task<TResult> PostAsync<T, TResult>(
             T data,
+            string url,
+            Dictionary<string, string> headers = null);
+
+        Task<TResult> PostFormAsync<TResult>(
+            IEnumerable<KeyValuePair<string, string>> data,
             string url,
             Dictionary<string, string> headers = null);
     }
@@ -23,28 +28,48 @@ namespace System.Net.Http {
             _httpClient = _httpClientFactory.CreateClient();
         }
 
+        private void addHeaders(Dictionary<string, string> headers = null) {
+            _httpClient.DefaultRequestHeaders.Clear();
+            foreach (var item in headers ?? new Dictionary<string, string>())
+                _httpClient.DefaultRequestHeaders.TryAddWithoutValidation(item.Key, item.Value);
+        }
+
         public async Task<TResult> PostAsync<T, TResult>(
             T data,
             string url,
             Dictionary<string, string> headers = null) {
-
-            foreach (var item in headers ?? new Dictionary<string, string>())
-                _httpClient.DefaultRequestHeaders.TryAddWithoutValidation(item.Key, item.Value);
-
+            addHeaders(headers);
             var result = await _httpClient.PostAsync(
                 url,
                 new StringContent(
-                    JsonSerializer.Serialize(data),
+                    JsonConvert.SerializeObject(data),
                     Encoding.UTF8,
                     "application/json")
             );
 
-            if (!result.IsSuccessStatusCode) {
-                throw new HttpRequestException($"{result.StatusCode} {result.ReasonPhrase}");
-            }
+            if (!result.IsSuccessStatusCode) 
+                throw new HttpRequestException(
+                    $"{result.StatusCode} {result.ReasonPhrase}");
 
-            return await JsonSerializer.DeserializeAsync<TResult>(
-                await result.Content.ReadAsStreamAsync());
+            var content = await result.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<TResult>(content);
+        }
+
+        public async Task<TResult> PostFormAsync<TResult>(
+            IEnumerable<KeyValuePair<string, string>> data,
+            string url,
+            Dictionary<string, string> headers = null) {
+            addHeaders(headers);
+            var result = await _httpClient.PostAsync(
+                url,
+                new FormUrlEncodedContent(data));
+
+            if (!result.IsSuccessStatusCode)
+                throw new HttpRequestException(
+                    $"{result.StatusCode} {result.ReasonPhrase}");
+
+            var content = await result.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<TResult>(content);
         }
     }
 }

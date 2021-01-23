@@ -55,10 +55,12 @@ namespace Iran.SMS.Kavenegar.Core {
                 throw new ArgumentNullException("Input model");
 
             string apiUrl = getApiUrl(scope: "sms", method: "send");
-            var input = model.ToKavenegarModel();
+            var input = model.ToFormData();
             var result = await _httpClient
-                .PostAsync<KavenegarSendSmsInput, SendSmsOutput>
-                    (input, url: apiUrl, headers: _baseHeaders);
+                .PostFormAsync<SendSmsOutput>(
+                    data: input, 
+                    url: apiUrl, 
+                    headers: _baseHeaders);
 
             return await Task.FromResult(result);
         }

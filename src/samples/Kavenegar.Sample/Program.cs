@@ -10,7 +10,7 @@ namespace Kavenegar.Sample
 {
     class Program
     {
-        const string __API_KEY = "";
+        const string __API_KEY = "YOUR_API_KEY";
 
         static Task Main(string[] args) {
             using IHost host = CreateHostBuilder(args).Build();

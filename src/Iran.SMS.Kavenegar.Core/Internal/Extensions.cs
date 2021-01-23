@@ -56,6 +56,9 @@ namespace Iran.SMS.Kavenegar.Core.Extensions {
         public static string ToUrlEncode(this string what)
             => HttpUtility.UrlEncode(what);
 
+        public static KeyValuePair<string, string> GetKeyValue(string key, string value)
+            => new KeyValuePair<string, string>(key, value);
+
         public static KavenegarSendSmsInput ToKavenegarModel<T>(
             this SendSmsInput<T> model)
                 => new KavenegarSendSmsInput {
@@ -69,6 +72,25 @@ namespace Iran.SMS.Kavenegar.Core.Extensions {
                         : model.SendDate.ToUnixTime(),
                     SenderLineNumber = model.SenderLineNumber.ToUrlEncode(),
                     LocalIds = model.LocalIds.GetLocalIdsAsString()
+                };
+
+        public static IEnumerable<KeyValuePair<string, string>> ToFormData<T>(
+            this SendSmsInput<T> model) 
+                => new List<KeyValuePair<string, string>> {
+                    { GetKeyValue("sender", model.SenderLineNumber) },
+                    { GetKeyValue(
+                        "receptor", 
+                        model.ReceptorMobileNumbers.GetMobileNumbersAsString()
+                    ) },
+                    { GetKeyValue("message", model.Message) },
+                    { GetKeyValue("type", ((int)model.DisplayType).ToString()) },
+                    { 
+                        GetKeyValue("date", model.SendDate == DateTime.MinValue 
+                            ? "0"
+                            : model.SendDate.ToUnixTime().ToString()) 
+                    },
+                    { GetKeyValue("localid", model.LocalIds.GetLocalIdsAsString()) },
+                    { GetKeyValue("hide", Convert.ToByte(model.HideInWebConsole).ToString()) }
                 };
 
     }
