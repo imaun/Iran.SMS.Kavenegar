@@ -1,15 +1,15 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Collections.Generic;
-using System.Text;
 
-namespace Iran.SMS.Kavenegar.Core.Internal
-{
+namespace Iran.SMS.Kavenegar.Core.Internal {
+
     /// <summary>
     /// Kavenegar REST API return codes.
     /// src: https://kavenegar.com/rest.html#result-general
     /// </summary>
     public static class ReturnCodes {
+
+        public const int SuccessCode = 200;
 
         private static Dictionary<int, string> _codes = new Dictionary<int, string> {
             { 200, "درخواست تایید شد" },
@@ -44,7 +44,10 @@ namespace Iran.SMS.Kavenegar.Core.Internal
             { 501, "فقط امکان ارسال پیام تست به شماره صاحب حساب کاربری وجود دارد" }
         };
 
-        public static string Translate(int status)
+        public static string Translate(this int status)
             => _codes.First(_ => _.Key == status).Value;
+
+        public static bool EnsureSuccessCode(this int value)
+            => value == SuccessCode;
     }
 }

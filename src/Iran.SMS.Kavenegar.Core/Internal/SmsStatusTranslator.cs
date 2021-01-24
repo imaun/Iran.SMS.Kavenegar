@@ -22,7 +22,7 @@ namespace Iran.SMS.Kavenegar.Core.Internal {
                 { KavenegarMessageStatus.SentButUndelivered, "نرسیده به گیرنده ، این وضعیت به دلایلی از جمله خاموش یا خارج از دسترس بودن گیرنده اتفاق می افتد (Undelivered)" },
                 { KavenegarMessageStatus.SentToOperator, "ارسال شده به مخابرات" },
                 { KavenegarMessageStatus.SentToOperator2, "ارسال شده به مخابرات (همانند وضعیت 4)" }
-            }
+            };
 
         public static string Translate(this KavenegarMessageStatus status)
             => _statusTexts.First(_ => _.Key == status).Value;
