@@ -9,6 +9,11 @@ namespace Iran.SMS.Kavenegar.Core.Models
     /// <typeparam name="T">T is the type of your entity Id property.</typeparam>
     public class SendSmsInput<T>
     {
+        public SendSmsInput() {
+            ReceptorMobileNumbers = new List<MobileNumber>();
+            LocalIds = new List<T>();
+        }
+
         public ICollection<MobileNumber> ReceptorMobileNumbers { get; set; }
         public string Message { get; set; }
         public string SenderLineNumber { get; set; }

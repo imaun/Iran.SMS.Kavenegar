@@ -1,9 +1,10 @@
 ﻿using Newtonsoft.Json;
+using Iran.SMS.Kavenegar.Core.Internal;
 
-namespace Iran.SMS.Kavenegar.Core.Models
-{
-    public class ApiResult<T> 
-    {
+namespace Iran.SMS.Kavenegar.Core.Models {
+
+    public class ApiResult<T>  {
+
         [JsonProperty("return")]
         public ApiReturnResult Result { get; set; }
         
@@ -11,10 +12,13 @@ namespace Iran.SMS.Kavenegar.Core.Models
         public T Entries { get; set; }
     }
 
-    public class ApiReturnResult
-    {
+    public class ApiReturnResult {
+
         [JsonProperty("status")]
         public int Status { get; set; }
+
+        [JsonIgnore]
+        public string StatusText => ReturnCodes.Translate(Status);
 
         [JsonProperty("message")]
         public string Message { get; set; }
