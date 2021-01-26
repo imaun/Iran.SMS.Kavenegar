@@ -20,6 +20,7 @@ namespace Iran.SMS.Kavenegar.Core.Models {
         [JsonIgnore]
         public string StatusText => ReturnCodes.Translate(Status);
 
+        [JsonIgnore]
         public bool Successful => Status.EnsureSuccessCode();
 
         [JsonProperty("message")]
