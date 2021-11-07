@@ -52,11 +52,13 @@ namespace System.Net.Http {
                 input
             );
 
-            if (!result.IsSuccessStatusCode) 
-                throw new HttpRequestException(
+            if (!result.IsSuccessStatusCode)
+			{
+				throw new HttpRequestException(
                     $"{result.StatusCode} {result.ReasonPhrase}");
+			}
 
-            var content = await result.Content.ReadAsStringAsync();
+			var content = await result.Content.ReadAsStringAsync();
 
             return JsonConvert.DeserializeObject<TResult>(content);
         }
@@ -75,10 +77,12 @@ namespace System.Net.Http {
                 formData);
 
             if (!result.IsSuccessStatusCode)
-                throw new HttpRequestException(
+			{
+				throw new HttpRequestException(
                     $"{result.StatusCode} {result.ReasonPhrase}");
+			}
 
-            var content = await result.Content.ReadAsStringAsync();
+			var content = await result.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<TResult>(content);
         }
     }
