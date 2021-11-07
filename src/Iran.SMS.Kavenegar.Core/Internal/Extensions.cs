@@ -28,7 +28,7 @@ namespace Iran.SMS.Kavenegar.Core.Extensions {
             return totalSeconds;
         }
 
-        public static DateTime ToDateTime(long unixTimeValue)
+        public static DateTime ToDateTime(this long unixTimeValue)
             => Epoch.AddSeconds(unixTimeValue).ToLocalTime();
 
         public static string GetMobileNumbersAsString(
@@ -92,6 +92,16 @@ namespace Iran.SMS.Kavenegar.Core.Extensions {
                     { GetKeyValue("localid", model.LocalIds.GetLocalIdsAsString()) },
                     { GetKeyValue("hide", Convert.ToByte(model.HideInWebConsole).ToString()) }
                 };
+
+        public static IEnumerable<KeyValuePair<string, string>> ToFormData(this VerifySmsInput model)
+            => new List<KeyValuePair<string, string>> {
+                { GetKeyValue("receptor", model.Receptor) },
+                { GetKeyValue("token", model.Token) },
+                { GetKeyValue("token2", model.Token2) },
+                { GetKeyValue("token3", model.Token3) },
+                { GetKeyValue("template", model.Template) },
+                { GetKeyValue("type", model.Type.ToString()) }
+            };
 
     }
 }

@@ -10,7 +10,8 @@ namespace Kavenegar.Sample
 {
     class Program
     {
-        const string __API_KEY = "YOUR_API_KEY";
+        const string __API_KEY = "4D454459647357333874436344456D384131367965486C2F2F50462B386C31766A4735705A533934704C513D";
+        const string __LINE_NUM = "10006060600";
 
         static Task Main(string[] args) {
             using IHost host = CreateHostBuilder(args).Build();
@@ -26,14 +27,21 @@ namespace Kavenegar.Sample
 
             var smsService = provider.GetRequiredService<IKavenegarService>();
             //smsService.ApiKey = __API_KEY;
-            var result = smsService.SendAsync(new SendSmsInput<long> {
-                DisplayType = MessageDisplayType.Normal,
-                ReceptorMobileNumbers = new List<MobileNumber> {
-                    new MobileNumber("09120781451")
-                },
-                Message = msg,
-                SendDate = DateTime.UtcNow,
-                SenderLineNumber = "1000596446"
+            //var result = smsService.SendAsync(new SendSmsInput<long> {
+            //    DisplayType = MessageDisplayType.Normal,
+            //    ReceptorMobileNumbers = new List<MobileNumber> {
+            //        new MobileNumber("09120781451")
+            //    },
+            //    Message = msg,
+            //    SendDate = DateTime.UtcNow,
+            //    SenderLineNumber = __LINE_NUM
+            //}).Result;
+
+            var result = smsService.VerifyAsync(new VerifySmsInput {
+                Receptor = "989120781451",
+                Template = "otp",
+                Token = "ایمان نعمتی",
+                Token2 = "213232"
             }).Result;
 
             var filan = result;

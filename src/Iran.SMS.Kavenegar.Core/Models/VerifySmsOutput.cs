@@ -1,21 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 using Iran.SMS.Kavenegar.Core.Extensions;
 
 namespace Iran.SMS.Kavenegar.Core.Models {
 
-    public class SendSmsOutput: ApiResult<IEnumerable<SendSmsOutputItem>>{ }
+    public class VerifySmsOutput : ApiResult<VerifySmsOutputItem> { }
 
-    public class SendSmsOutputItem {
+    public class VerifySmsOutputItem {
+
         /// <summary>
-        /// شناسه یکتای این پیامک (برای اطلاع از وضعیت پیامک ارسالی این مقدار ورودی متد Status می‌باشد.)
+        /// شناسه یکتای این پیامک
+        /// برای اطلاع از وضعیت پیامک ارسالی این مقدار ورودی متد Status می‌باشد.
         /// </summary>
         [JsonProperty("messageid")]
         public long Id { get; set; }
 
         /// <summary>
-        /// متن پیام ارسال شده
+        /// متن پیامک ارسال شده
         /// </summary>
         [JsonProperty("message")]
         public string Message { get; set; }
@@ -37,12 +38,6 @@ namespace Iran.SMS.Kavenegar.Core.Models {
         /// </summary>
         [JsonProperty("sender")]
         public string SenderLineNumber { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonIgnore]
-        public MobileNumber ReceptorMobileNumber { get; set; }
 
         /// <summary>
         /// شماره گیرنده

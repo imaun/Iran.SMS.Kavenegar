@@ -52,7 +52,7 @@ namespace Iran.SMS.Kavenegar.Core {
         /// <inheritdoc/>
         public async Task<SendSmsOutput> SendAsync<T>(SendSmsInput<T> model) {
             if (model == null)
-                throw new ArgumentNullException("Input model");
+                throw new ArgumentNullException("Input model cannot be null.");
 
             string apiUrl = getApiUrl(scope: "sms", method: "send");
             var input = model.ToFormData();
@@ -64,8 +64,23 @@ namespace Iran.SMS.Kavenegar.Core {
 
             return await Task.FromResult(result);
         }
-        
 
+        /// <inheritdoc/>
+        public async Task<VerifySmsOutput> VerifyAsync(VerifySmsInput model) {
+            if (model == null)
+                throw new ArgumentNullException("input model cannot be null.");
+
+            string apiUrl = getApiUrl(scope: "verify", method: "lookup");
+            var input = model.ToFormData();
+
+            //var result = await _httpClient.PostAsync<VerifySmsInput, VerifySmsOutput>
+            //    (model, apiUrl, _baseHeaders);
+
+            var result = await _httpClient.PostFormAsync<VerifySmsOutput>
+                (data: input, url: apiUrl, headers: null);
+
+            return await Task.FromResult(result);
+        }
 
     }
 }

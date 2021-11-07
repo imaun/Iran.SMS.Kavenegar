@@ -39,12 +39,17 @@ namespace System.Net.Http {
             string url,
             Dictionary<string, string> headers = null) {
             addHeaders(headers);
+
+            var json = JsonConvert.SerializeObject(data);
+            var input = new StringContent(
+                    json,
+                    Encoding.UTF8,
+                    "application/json");
+            input.Headers.ContentLength = Encoding.UTF8.GetByteCount(json);
+
             var result = await _httpClient.PostAsync(
                 url,
-                new StringContent(
-                    JsonConvert.SerializeObject(data),
-                    Encoding.UTF8,
-                    "application/json")
+                input
             );
 
             if (!result.IsSuccessStatusCode) 
@@ -52,6 +57,7 @@ namespace System.Net.Http {
                     $"{result.StatusCode} {result.ReasonPhrase}");
 
             var content = await result.Content.ReadAsStringAsync();
+
             return JsonConvert.DeserializeObject<TResult>(content);
         }
 
@@ -60,9 +66,13 @@ namespace System.Net.Http {
             string url,
             Dictionary<string, string> headers = null) {
             addHeaders(headers);
+
+            var formData = new FormUrlEncodedContent(data);
+            //formData.Headers.ContentLength = Encoding.UTF8.GetByteCount(await formData.ReadAsStringAsync());
+
             var result = await _httpClient.PostAsync(
                 url,
-                new FormUrlEncodedContent(data));
+                formData);
 
             if (!result.IsSuccessStatusCode)
                 throw new HttpRequestException(
