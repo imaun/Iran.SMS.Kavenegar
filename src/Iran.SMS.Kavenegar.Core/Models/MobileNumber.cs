@@ -22,13 +22,15 @@ namespace Iran.SMS.Kavenegar.Core.Models
 
                 if (!_matchMobileNumber1.IsMatch(value) &&
                     !_matchMobileNumber2.IsMatch(value))
-                    throw new ArgumentException("MobileNumber format is not valid.");
+				{
+					throw new ArgumentException("MobileNumber format is not valid.");
+				}
 
-                _value = value;
+				_value = value;
             }
         }
 
-        public override string ToString() 
+        public override string ToString()
             => _value;
 
     }
