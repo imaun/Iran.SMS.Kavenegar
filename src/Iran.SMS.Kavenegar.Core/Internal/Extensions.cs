@@ -16,7 +16,7 @@ namespace Iran.SMS.Kavenegar.Core.Extensions {
            new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
         /// <summary>
-        /// Convert a <see cref="DateTime"/> value to correspondig Unix Timestamp.
+        /// Convert a <see cref="DateTime"/> value to corresponding Unix Timestamp.
         /// Note that you must send DateTime value in UTC for this method to work correctly.
         /// </summary>
         /// <param name="value">DateTime value to convert to Timestamp.</param>
@@ -37,7 +37,7 @@ namespace Iran.SMS.Kavenegar.Core.Extensions {
             var result = source.Aggregate("",
                 (current, mobile)
                     => current + (mobile.ToString() + delimeter));
-            return result.Substring(0, result.Length - 1);
+            return result[0..^1];
         }
 
         public static string GetLocalIdsAsString<T>(
@@ -46,11 +46,11 @@ namespace Iran.SMS.Kavenegar.Core.Extensions {
             var result = string.Empty;
             if (localIds == null || !localIds.Any())
                 return result;
-            
+
             foreach (T item in localIds)
                 result += $"{item}{delimeter}";
 
-            return result.Substring(0, result.Length - 1);
+            return result[0..^1];
         }
 
         public static string ToUrlEncode(this string what)
@@ -67,27 +67,27 @@ namespace Iran.SMS.Kavenegar.Core.Extensions {
                     Message = model.Message.ToUrlEncode(),
                     Receptor = model.ReceptorMobileNumbers
                         .GetMobileNumbersAsString().ToUrlEncode(),
-                    SendDate = model.SendDate == DateTime.MinValue 
-                        ? 0 
+                    SendDate = model.SendDate == DateTime.MinValue
+                        ? 0
                         : model.SendDate.ToUnixTime(),
                     SenderLineNumber = model.SenderLineNumber.ToUrlEncode(),
                     LocalIds = model.LocalIds.GetLocalIdsAsString()
                 };
 
         public static IEnumerable<KeyValuePair<string, string>> ToFormData<T>(
-            this SendSmsInput<T> model) 
+            this SendSmsInput<T> model)
                 => new List<KeyValuePair<string, string>> {
                     { GetKeyValue("sender", model.SenderLineNumber) },
                     { GetKeyValue(
-                        "receptor", 
+                        "receptor",
                         model.ReceptorMobileNumbers.GetMobileNumbersAsString()
                     ) },
                     { GetKeyValue("message", model.Message) },
                     { GetKeyValue("type", ((int)model.DisplayType).ToString()) },
-                    { 
-                        GetKeyValue("date", model.SendDate == DateTime.MinValue 
+                    {
+                        GetKeyValue("date", model.SendDate == DateTime.MinValue
                             ? "0"
-                            : model.SendDate.ToUnixTime().ToString()) 
+                            : model.SendDate.ToUnixTime().ToString())
                     },
                     { GetKeyValue("localid", model.LocalIds.GetLocalIdsAsString()) },
                     { GetKeyValue("hide", Convert.ToByte(model.HideInWebConsole).ToString()) }
