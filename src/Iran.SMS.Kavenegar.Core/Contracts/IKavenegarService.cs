@@ -3,6 +3,9 @@ using Iran.SMS.Kavenegar.Core.Models;
 
 namespace Iran.SMS.Kavenegar.Core {
 
+    /// <summary>
+    /// Kavenegar API provider
+    /// </summary>
     public interface IKavenegarService {
 
         /// <summary>

@@ -33,6 +33,18 @@ namespace Iran.SMS.Kavenegar.Core.Models {
         public string Token3 { get; set; }
 
         /// <summary>
+        /// می تواند حاوی کلیه کاراکترهای فارسی، انگلیسی و عدد باشد، به جز فضای خالی (Space)
+        /// </summary>
+        [JsonProperty("token10")]
+        public string Token10 { get; set; }
+
+        /// <summary>
+        /// می تواند حاوی کلیه کاراکترهای فارسی، انگلیسی و عدد باشد، به جز فضای خالی (Space)
+        /// </summary>
+        [JsonProperty("token20")]
+        public string Token20 { get; set; }
+
+        /// <summary>
         /// 	نام الگوی تعریف شده برای اعتبار سنجی
         /// </summary>
         [JsonProperty("template")]

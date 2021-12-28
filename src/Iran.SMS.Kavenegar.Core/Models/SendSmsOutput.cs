@@ -5,7 +5,7 @@ using Iran.SMS.Kavenegar.Core.Extensions;
 
 namespace Iran.SMS.Kavenegar.Core.Models {
 
-    public class SendSmsOutput: ApiResult<IEnumerable<SendSmsOutputItem>>{ }
+    public class SendSmsOutput: ApiResult<SendSmsOutputItem> { }
 
     public class SendSmsOutputItem {
         /// <summary>

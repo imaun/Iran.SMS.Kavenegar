@@ -3,11 +3,11 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Iran.SMS.Kavenegar.Core.Models;
-using Iran.SMS.Kavenegar.Core.Internal;
 using Iran.SMS.Kavenegar.Core.Extensions;
 
 namespace Iran.SMS.Kavenegar.Core {
 
+    /// <inheritdoc />
     public class KavenegarService: IKavenegarService {
 
         #region Constants
@@ -46,7 +46,8 @@ namespace Iran.SMS.Kavenegar.Core {
 
         private Dictionary<string, string> _baseHeaders = 
             new Dictionary<string, string> {
-            {"Content-Type", "application/x-www-form-urlencoded"}
+            //{"Content-Type", "application/x-www-form-urlencoded"}
+            {"Content-Type", "application/json"}
         };
 
         /// <inheritdoc/>
@@ -72,9 +73,6 @@ namespace Iran.SMS.Kavenegar.Core {
 
             string apiUrl = getApiUrl(scope: "verify", method: "lookup");
             var input = model.ToFormData();
-
-            //var result = await _httpClient.PostAsync<VerifySmsInput, VerifySmsOutput>
-            //    (model, apiUrl, _baseHeaders);
 
             var result = await _httpClient.PostFormAsync<VerifySmsOutput>
                 (data: input, url: apiUrl, headers: null);

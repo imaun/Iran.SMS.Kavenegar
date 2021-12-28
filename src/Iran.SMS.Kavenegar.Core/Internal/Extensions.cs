@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Web;
 using System.Linq;
 using System.Collections.Generic;
@@ -95,10 +96,12 @@ namespace Iran.SMS.Kavenegar.Core.Extensions {
 
         public static IEnumerable<KeyValuePair<string, string>> ToFormData(this VerifySmsInput model)
             => new List<KeyValuePair<string, string>> {
-                { GetKeyValue("receptor", model.Receptor) },
+                { GetKeyValue("receptor", WebUtility.HtmlEncode(model.Receptor)) },
                 { GetKeyValue("token", model.Token) },
                 { GetKeyValue("token2", model.Token2) },
                 { GetKeyValue("token3", model.Token3) },
+                { GetKeyValue("token10", model.Token10) },
+                { GetKeyValue("token20", model.Token20) },
                 { GetKeyValue("template", model.Template) },
                 { GetKeyValue("type", model.Type.ToString()) }
             };

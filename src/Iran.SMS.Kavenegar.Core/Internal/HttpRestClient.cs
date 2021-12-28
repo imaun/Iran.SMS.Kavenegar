@@ -79,6 +79,7 @@ namespace System.Net.Http {
                     $"{result.StatusCode} {result.ReasonPhrase}");
 
             var content = await result.Content.ReadAsStringAsync();
+
             return JsonConvert.DeserializeObject<TResult>(content);
         }
     }

@@ -37,12 +37,23 @@ namespace Kavenegar.Sample
             //    SenderLineNumber = __LINE_NUM
             //}).Result;
 
-            var result = smsService.VerifyAsync(new VerifySmsInput {
-                Receptor = "989120781451",
-                Template = "otp",
-                Token = "ایمان نعمتی",
-                Token2 = "213232"
-            }).Result;
+            //var result = smsService.VerifyAsync(new VerifySmsInput {
+            //    Receptor = "989120781451",
+            //    Template = "otp",
+            //    Token = "سلام",
+            //    Token2 = "213232"
+            //}).Result;
+
+            var result = smsService.SendAsync<int>(new SendSmsInput<int>
+            {
+                DisplayType = MessageDisplayType.News,
+                HideInWebConsole = true,
+                Message = "تست ارسال پیام از کاوه نگار",
+                ReceptorMobileNumbers = new List<MobileNumber>
+                {
+                    new MobileNumber("989120781451")
+                }
+            }).GetAwaiter().GetResult();
 
             var filan = result;
         }
