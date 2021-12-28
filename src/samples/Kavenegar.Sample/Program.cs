@@ -10,8 +10,8 @@ namespace Kavenegar.Sample
 {
     class Program
     {
-        const string __API_KEY = "4D454459647357333874436344456D384131367965486C2F2F50462B386C31766A4735705A533934704C513D";
-        const string __LINE_NUM = "10006060600";
+        const string __API_KEY = "Your_API_KEY";
+        const string __LINE_NUM = "Your_Line_Number";
 
         static Task Main(string[] args) {
             using IHost host = CreateHostBuilder(args).Build();
@@ -30,7 +30,7 @@ namespace Kavenegar.Sample
             //var result = smsService.SendAsync(new SendSmsInput<long> {
             //    DisplayType = MessageDisplayType.Normal,
             //    ReceptorMobileNumbers = new List<MobileNumber> {
-            //        new MobileNumber("09120781451")
+            //        new MobileNumber("")
             //    },
             //    Message = msg,
             //    SendDate = DateTime.UtcNow,
@@ -38,7 +38,7 @@ namespace Kavenegar.Sample
             //}).Result;
 
             //var result = smsService.VerifyAsync(new VerifySmsInput {
-            //    Receptor = "989120781451",
+            //    Receptor = "",
             //    Template = "otp",
             //    Token = "سلام",
             //    Token2 = "213232"
@@ -51,7 +51,7 @@ namespace Kavenegar.Sample
                 Message = "تست ارسال پیام از کاوه نگار",
                 ReceptorMobileNumbers = new List<MobileNumber>
                 {
-                    new MobileNumber("989120781451")
+                    new MobileNumber("____")
                 }
             }).GetAwaiter().GetResult();
 
